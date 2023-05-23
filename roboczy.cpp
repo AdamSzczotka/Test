@@ -6,9 +6,43 @@ void wyswietla_menu();
 void liczy_kwadrat();
 void liczy_kolo();
 
+
+class Kolo {
+  private:
+    double promien;
+
+  public:
+    // Konstruktor
+    Kolo(double r) 
+    {
+      if (r > 0) 
+      {
+        promien = r;
+      } else 
+      {
+        std::cout << "Błędny promień! Promień musi być większy od zera." << std::endl;
+        promien = 0;
+      }
+    }
+
+    // Metoda obliczająca pole koła
+    double obliczPole() 
+    {
+      return 3.14159 * promien * promien;
+    }
+
+    // Destruktor
+    ~Kolo()
+    {
+        cout << "Usunięto obiekt klasy Kolo" << endl;
+    }
+};
+
+
 class Kwadrat {
 private:
   float bok;
+
 
 public:
   // Konstruktor
@@ -92,6 +126,7 @@ void wyswietla_menu()
             break;
         case '3' :
             //wyswietla_pole_kola();
+            liczy_kolo();
 
             break;
         case '4' :
@@ -113,6 +148,31 @@ void wyswietla_menu()
     }while (warunek);
 }
 
+
+void liczy_kolo()
+{
+    double promien;
+    std::cout << "Podaj promień koła: ";
+    std::cin >> promien;
+
+    // Sprawdzenie, czy podany promień jest większy od zera
+    while (promien <= 0)
+    {
+        std::cout << "Błędny promień! Promień musi być większy od zera." << std::endl;
+        std::cout << "Podaj promień koła: ";
+        std::cin >> promien;
+    }
+
+    // Tworzenie obiektu klasy Kolo
+    Kolo* kolo = new Kolo(promien);
+
+    // Wywołanie metody obliczPole() i wyświetlenie wyniku
+    double pole = kolo ->obliczPole();
+    std::cout << "Pole koła wynosi: " << pole << std::endl;
+
+    delete kolo;
+}
+
 void liczy_kwadrat()
 {
     float bok;
@@ -125,4 +185,3 @@ void liczy_kwadrat()
     delete kwadrat;
 
 }
-
