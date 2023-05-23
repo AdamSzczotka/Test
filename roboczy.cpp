@@ -27,9 +27,9 @@ class Kolo {
       // Sprawdzenie, czy podany promień jest większy od zera
       while (promien <= 0)
       {
-          std::cout << "Bledny promien! Promien musi byc wiekszy od zera." << std::endl;
-          std::cout << "Podaj promien kola: ";
-          std::cin >> promien;
+        std::cout << "Bledny promien! Promien musi byc wiekszy od zera." << std::endl;
+        std::cout << "Podaj promien kola: ";
+        std::cin >> promien;
       }
 
       Kolo::promien = promien;
@@ -44,7 +44,7 @@ class Kolo {
     // Destruktor
     ~Kolo()
     {
-        cout << "Usunięto obiekt klasy Kolo" << endl;
+      cout << "Usunięto obiekt klasy Kolo" << endl;
     }
 };
 
@@ -95,122 +95,127 @@ public:
 
 class Trojkat 
 {
-private:
-  double a;
-  double h;
+  private:
+    double a;
+    double h;
 
-public:
-  // Konstruktor
-  Trojkat() 
-  {
-
-  }
-
-  // Setter dla podstawy a
-  void ustawPodstawe(double podstawa) 
-  {
-    while(podstawa <= 0)
+  public:
+    // Konstruktor
+    Trojkat() 
     {
-      std::cout << "Bledna podstawa! Podstawa musi byc wieksza od zera." << std::endl;
-      std::cout << "Podaj podstawe trojkata: ";
-      std::cin >> podstawa;
+
     }
 
-    Trojkat:: a = podstawa;
-  }
-
-  // Getter dla boku a
-  double wysiwietlPodstawe() 
-  {
-    return Trojkat:: a;
-  }
-
-  // Setter dla wysokości h
-  void ustawWysokosc(double wysokosc) 
-  {
-    while(wysokosc <= 0)
+    // Setter dla podstawy a
+    void ustawPodstawe(double podstawa) 
     {
-      std::cout << "Bledna wysokosc! Wysokosc musi byc wieksza od zera." << std::endl;
-      std::cout << "Podaj wysokosc trojkata: ";
-      std::cin >> wysokosc;
+      while(podstawa <= 0)
+      {
+        std::cout << "Bledna podstawa! Podstawa musi byc wieksza od zera." << std::endl;
+        std::cout << "Podaj podstawe trojkata: ";
+        std::cin >> podstawa;
+      }
+
+      Trojkat:: a = podstawa;
     }
 
-    Trojkat:: h = wysokosc;
-  }
+    // Getter dla boku a
+    double wysiwietlPodstawe() 
+    {
+      return Trojkat:: a;
+    }
 
-  // Getter dla wysokości h
-  double wyswietlWysokosc() 
-  {
-    return Trojkat:: h;
-  }
+    // Setter dla wysokości h
+    void ustawWysokosc(double wysokosc) 
+    {
+      while(wysokosc <= 0)
+      {
+        std::cout << "Bledna wysokosc! Wysokosc musi byc wieksza od zera." << std::endl;
+        std::cout << "Podaj wysokosc trojkata: ";
+        std::cin >> wysokosc;
+      }
 
-  // Metoda obliczająca pole trójkąta
-  double obliczPole() 
-  {
-    return (a * h) / 2.0;
-  }
+      Trojkat:: h = wysokosc;
+    }
 
-  // Destruktor
-  ~Trojkat() 
-  {
-    std::cout << "Obiekt Trojkat zostal zniszczony." << std::endl;
+    // Getter dla wysokości h
+    double wyswietlWysokosc() 
+    {
+      return Trojkat:: h;
+    }
 
-class Prostokat {
-    private:
-        double dlugosc;
-        double szerokosc;
+    // Metoda obliczająca pole trójkąta
+    double obliczPole() 
+    {
+      return (a * h) / 2.0;
+    }
 
-    public:
-        // Konstruktor
-        Prostokat() {}
+    // Destruktor
+    ~Trojkat() 
+    {
+      std::cout << "Obiekt Trojkat zostal zniszczony." << std::endl;
+    }
+};
 
-        // Destruktor
-        ~Prostokat() {}
+class Prostokat 
+{
+  private:
+    double dlugosc;
+    double szerokosc;
+
+  public:
+    // Konstruktor
+    Prostokat() {}
+
+    // Destruktor
+    ~Prostokat() {}
 
     // Setter dla długości
-    void ustawDlugosc(double nowaDlugosc) {
-        while (nowaDlugosc <= 0) 
-        {
-            cout << "Niepoprawna długosc, musi byc wieksza od 0! Sprobuj jeszcze raz." << endl;
-            cout << "Podaj długosc: ";
-            cin >> nowaDlugosc;
-        }
+    void ustawDlugosc(double nowaDlugosc) 
+    {
+      while (nowaDlugosc <= 0) 
+      {
+        cout << "Niepoprawna długosc, musi byc wieksza od 0! Sprobuj jeszcze raz." << endl;
+        cout << "Podaj długosc: ";
+        cin >> nowaDlugosc;
+      }
 
-        Prostokat::dlugosc = nowaDlugosc;
+      Prostokat::dlugosc = nowaDlugosc;
     }
 
     // Setter dla szerokości
     void ustawSzerokosc(double nowaSzerokosc) {
-        while (nowaSzerokosc <= 0) 
-        {
-            cout << "Niepoprawna szerokosc, musi byc wieksza od 0! Sprobuj jeszcze raz." << endl;
-            cout << "Podaj szerokosc: ";
-            cin >> nowaSzerokosc;
-        }
+      while (nowaSzerokosc <= 0) 
+      {
+        cout << "Niepoprawna szerokosc, musi byc wieksza od 0! Sprobuj jeszcze raz." << endl;
+        cout << "Podaj szerokosc: ";
+        cin >> nowaSzerokosc;
+      }
 
-        szerokosc = nowaSzerokosc;
+      szerokosc = nowaSzerokosc;
     }
 
     // Getter dla długości
     double pobierzDlugosc()  
     {
-        return dlugosc;
+      return dlugosc;
     }
 
     // Getter dla szerokości
     double pobierzSzerokosc()  
     {
-        return szerokosc;
+      return szerokosc;
     }
 
     // Metoda do obliczania pola prostokąta
     double obliczPole()  
     {
-        return dlugosc * szerokosc;
+      return dlugosc * szerokosc;
     }
 };
 
-class Trapez {
+class Trapez 
+{
 private:
   double podstawa1;
   double podstawa2;
@@ -257,119 +262,122 @@ public:
   }
 
   // Getter dla podstawy 1
-  double pobierzPodstawe1()  {
+  double pobierzPodstawe1()  
+  {
     return podstawa1;
   }
 
   // Getter dla podstawy 2
-  double pobierzPodstawe2()  {
+  double pobierzPodstawe2()  
+  {
     return podstawa2;
   }
 
   // Getter dla wysokości
-  double pobierzWysokosc()  {
+  double pobierzWysokosc()  
+  {
     return wysokosc;
   }
 
   // Metoda do obliczania pola trapezu
-  double obliczPole()  {
+  double obliczPole()  
+  {
     return (podstawa1 + podstawa2) * wysokosc / 2;
   }
 };
 
 int main(int argc, char const *argv[])
 {
-     wyswietla_menu();
+  wyswietla_menu();
 
-    return 0;
+  return 0;
 }
 
 void wyswietla_menu()
 {
-        bool warunek = true;
-    do
+  bool warunek = true;
+  do
+  {
+    char odp;
+
+    system("cls");
+
+    cout<<"Program FIGURY"<<endl;
+    cout<<"\n1. Pole kwadratu"<<endl;
+    cout<<"2. Pole prostokata"<<endl;
+    cout<<"3. Pole kola"<<endl;
+    cout<<"4. Pole trojkata"<<endl;
+    cout<<"5. Pole trapezu"<<endl;
+    cout<<"\n0. Koniec programu"<<endl;
+    cout<<"\nWybierz [0-5] co chcesz zrobic: ";
+
+    cin>>odp;
+
+    switch (odp)
     {
-        char odp;
+      case '0' :
+        warunek = false;
+        cout<<"Koniec programu. Autor: Mateusz Wieczorek"<<endl;
+        break;
+      case '1' :
+        liczy_kwadrat();
+        break;
+      case '2' :
+        liczy_prostokat();
+        break;
+      case '3' :
+        //wyswietla_pole_kola();
+        liczy_kolo();
 
+        break;
+      case '4' :
+        //wyswietla_pole_trojkat();
+        liczy_trojkat();
+
+        break;
+      case '5' :
+        liczy_trapez();
+
+        break;
+      default:
         system("cls");
+        cout<<"Nierozpoznano znaku. Sprobuj ponownie."<<endl;
+        break;
+    }
+    system("pause");
 
-        cout<<"Program FIGURY"<<endl;
-        cout<<"\n1. Pole kwadratu"<<endl;
-        cout<<"2. Pole prostokata"<<endl;
-        cout<<"3. Pole kola"<<endl;
-        cout<<"4. Pole trojkata"<<endl;
-        cout<<"5. Pole trapezu"<<endl;
-        cout<<"\n0. Koniec programu"<<endl;
-        cout<<"\nWybierz [0-5] co chcesz zrobic: ";
-
-        cin>>odp;
-
-        switch (odp)
-        {
-        case '0' :
-            warunek = false;
-            cout<<"Koniec programu. Autor: Mateusz Wieczorek"<<endl;
-            break;
-        case '1' :
-            liczy_kwadrat();
-            break;
-        case '2' :
-            liczy_prostokat();
-            break;
-        case '3' :
-            //wyswietla_pole_kola();
-            liczy_kolo();
-
-            break;
-        case '4' :
-            //wyswietla_pole_trojkat();
-            liczy_trojkat();
-
-            break;
-        case '5' :
-            liczy_trapez();
-
-            break;
-        default:
-            system("cls");
-            cout<<"Nierozpoznano znaku. Sprobuj ponownie."<<endl;
-            break;
-        }
-
-        system("pause");
-
-    }while (warunek);
+  }while (warunek);
 }
 
 void liczy_kolo()
 {
-    double promien;
-    std::cout << "Podaj promien kola: ";
-    std::cin >> promien;
+  double promien;
+  std::cout << "Podaj promien kola: ";
+  std::cin >> promien;
 
-    // Tworzenie obiektu klasy Kolo
-    Kolo* kolo = new Kolo();
+  // Tworzenie obiektu klasy Kolo
+  Kolo* kolo = new Kolo();
 
-    // Wywołanie metody ustawPromien()
-    kolo->ustawPromien(promien);
+  // Wywołanie metody ustawPromien()
+  kolo->ustawPromien(promien);
 
-    // Wywołanie metody obliczPole() i wyświetlenie wyniku
-    double pole = kolo ->obliczPole();
-    std::cout << "Pole kola wynosi: " << pole << std::endl;
+  // Wywołanie metody obliczPole() i wyświetlenie wyniku
+  double pole = kolo ->obliczPole();
+  std::cout << "Pole kola wynosi: " << pole << std::endl;
 
-    delete kolo;
+  delete kolo;
 }
 
 void liczy_kwadrat()
 {
-    float bok;
+  float bok;
 
-    Kwadrat * kwadrat = new Kwadrat();
-    cout<< endl <<"Podaj bok: ";
-    cin>>bok;
-    kwadrat->ustawBok(bok);
-    cout<<endl<<"Pole kwadratu wynosi: " <<kwadrat->obliczPole() << endl;
-    delete kwadrat;
+  Kwadrat * kwadrat = new Kwadrat();
+  cout<< endl <<"Podaj bok: ";
+  cin>>bok;
+  kwadrat->ustawBok(bok);
+  cout<<endl<<"Pole kwadratu wynosi: " <<kwadrat->obliczPole() << endl;
+  delete kwadrat;
 
 }
 
