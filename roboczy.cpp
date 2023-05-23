@@ -6,6 +6,7 @@ void wyswietla_menu();
 void liczy_kwadrat();
 void liczy_kolo();
 
+
 class Kolo {
   private:
     double promien;
@@ -38,6 +39,50 @@ class Kolo {
 };
 
 
+class Kwadrat {
+private:
+  float bok;
+
+
+public:
+  // Konstruktor
+  Kwadrat()
+  {
+
+  }
+
+  // Destruktor
+  ~Kwadrat()
+  {
+
+  }
+
+  // Setter dla boku
+  void ustawBok(float dlugoscBoku) 
+  {
+    while (dlugoscBoku <= 0)
+    {
+        cout<< endl << "Nieporawne dane, bok musi byc wiekszy od 0! Sprobuj jeszcze raz"<< endl;
+        cout<<"Podaj bok: ";
+        cin>>dlugoscBoku;
+    }
+
+    Kwadrat::bok = dlugoscBoku;
+    
+  }
+
+  // Getter dla boku
+  float wyswietlBok() 
+  {
+    return Kwadrat::bok;
+  }
+
+  // Metoda do obliczania pola kwadratu
+  float obliczPole()  
+  {
+    return bok * bok;
+  }
+};
 
 int main(int argc, char const *argv[])
 {
@@ -73,7 +118,7 @@ void wyswietla_menu()
             cout<<"Koniec programu. Autor: Mateusz Wieczorek"<<endl;
             break;
         case '1' :
-
+            liczy_kwadrat();
             break;
         case '2' :
             //wyswietla_pole_prostokat();
@@ -103,6 +148,7 @@ void wyswietla_menu()
     }while (warunek);
 }
 
+
 void liczy_kolo()
 {
     double promien;
@@ -125,5 +171,17 @@ void liczy_kolo()
     std::cout << "Pole koła wynosi: " << pole << std::endl;
 
     delete kolo;
+}
+
+void liczy_kwadrat()
+{
+    float bok;
+
+    Kwadrat * kwadrat = new Kwadrat();
+    cout<< endl <<"Podaj bok: ";
+    cin>>bok;
+    kwadrat->ustawBok(bok);
+    cout<<endl<<"Pole kwadratu wynosi: " <<kwadrat->obliczPole() << endl;
+    delete kwadrat;
 
 }
