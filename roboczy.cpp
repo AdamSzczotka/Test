@@ -6,6 +6,7 @@ void wyswietla_menu();
 void liczy_kwadrat();
 void liczy_prostokat();
 void liczy_kolo();
+void liczy_trojkat();
 void liczy_trapez();
 
 
@@ -15,16 +16,23 @@ class Kolo {
 
   public:
     // Konstruktor
-    Kolo(double r) 
+    Kolo() 
     {
-      if (r > 0) 
+
+    }
+
+    // Setter dla promienia
+    void ustawPromien(double promien)
+    {
+      // Sprawdzenie, czy podany promień jest większy od zera
+      while (promien <= 0)
       {
-        promien = r;
-      } else 
-      {
-        std::cout << "Błędny promień! Promień musi być większy od zera." << std::endl;
-        promien = 0;
+          std::cout << "Bledny promien! Promien musi byc wiekszy od zera." << std::endl;
+          std::cout << "Podaj promien kola: ";
+          std::cin >> promien;
       }
+
+      Kolo::promien = promien;
     }
 
     // Metoda obliczająca pole koła
@@ -40,11 +48,9 @@ class Kolo {
     }
 };
 
-
 class Kwadrat {
 private:
   double bok;
-
 
 public:
   // Konstruktor
@@ -85,6 +91,69 @@ public:
     return bok * bok;
   }
 };
+
+
+class Trojkat 
+{
+private:
+  double a;
+  double h;
+
+public:
+  // Konstruktor
+  Trojkat() 
+  {
+
+  }
+
+  // Setter dla podstawy a
+  void ustawPodstawe(double podstawa) 
+  {
+    while(podstawa <= 0)
+    {
+      std::cout << "Bledna podstawa! Podstawa musi byc wieksza od zera." << std::endl;
+      std::cout << "Podaj podstawe trojkata: ";
+      std::cin >> podstawa;
+    }
+
+    Trojkat:: a = podstawa;
+  }
+
+  // Getter dla boku a
+  double wysiwietlPodstawe() 
+  {
+    return Trojkat:: a;
+  }
+
+  // Setter dla wysokości h
+  void ustawWysokosc(double wysokosc) 
+  {
+    while(wysokosc <= 0)
+    {
+      std::cout << "Bledna wysokosc! Wysokosc musi byc wieksza od zera." << std::endl;
+      std::cout << "Podaj wysokosc trojkata: ";
+      std::cin >> wysokosc;
+    }
+
+    Trojkat:: h = wysokosc;
+  }
+
+  // Getter dla wysokości h
+  double wyswietlWysokosc() 
+  {
+    return Trojkat:: h;
+  }
+
+  // Metoda obliczająca pole trójkąta
+  double obliczPole() 
+  {
+    return (a * h) / 2.0;
+  }
+
+  // Destruktor
+  ~Trojkat() 
+  {
+    std::cout << "Obiekt Trojkat zostal zniszczony." << std::endl;
 
 class Prostokat {
     private:
@@ -254,6 +323,7 @@ void wyswietla_menu()
             break;
         case '4' :
             //wyswietla_pole_trojkat();
+            liczy_trojkat();
 
             break;
         case '5' :
@@ -271,27 +341,21 @@ void wyswietla_menu()
     }while (warunek);
 }
 
-
 void liczy_kolo()
 {
     double promien;
-    std::cout << "Podaj promień koła: ";
+    std::cout << "Podaj promien kola: ";
     std::cin >> promien;
 
-    // Sprawdzenie, czy podany promień jest większy od zera
-    while (promien <= 0)
-    {
-        std::cout << "Błędny promień! Promień musi być większy od zera." << std::endl;
-        std::cout << "Podaj promień koła: ";
-        std::cin >> promien;
-    }
-
     // Tworzenie obiektu klasy Kolo
-    Kolo* kolo = new Kolo(promien);
+    Kolo* kolo = new Kolo();
+
+    // Wywołanie metody ustawPromien()
+    kolo->ustawPromien(promien);
 
     // Wywołanie metody obliczPole() i wyświetlenie wyniku
     double pole = kolo ->obliczPole();
-    std::cout << "Pole koła wynosi: " << pole << std::endl;
+    std::cout << "Pole kola wynosi: " << pole << std::endl;
 
     delete kolo;
 }
@@ -309,6 +373,31 @@ void liczy_kwadrat()
 
 }
 
+
+void liczy_trojkat()
+{
+    double a, h;
+    std::cout << "Podaj dlugosc boku a trojkata ";
+    std::cin >> a;
+    std::cout << "Podaj wysokosc h trojkata ";
+    std::cin >> h;
+
+    // Tworzenie obiektu klasy Triangle
+    Trojkat* trojkat = new Trojkat();
+
+    // Wywołanie metody ustawPodstawe()
+    trojkat->ustawPodstawe(a);
+
+    // Wywołanie metody ustawWysokosc()
+    trojkat->ustawWysokosc(h);
+
+    // Wywołanie metody obliczPole() i wyświetlenie wyniku
+    double pole = trojkat->obliczPole();
+    std::cout << "Pole trojkata wynosi: " << pole << std::endl;
+
+    // Usunięcie obiektu po obliczeniu
+    delete trojkat;
+}
 
 void liczy_prostokat()
 {
@@ -343,4 +432,3 @@ void liczy_trapez()
     cout<<endl<<"Pole trapezu wynosi: " <<trapez->obliczPole() << endl;
     delete trapez;
 }
-
