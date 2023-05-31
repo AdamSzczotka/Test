@@ -1,0 +1,7 @@
+Zadanie 1 
+Program obliczający pole trójkąta z wzoru (a*h)/2 
+wykorzystuje programowanie obiektowe w języku c++
+Użyj klas
+
+napisz setter i getter oraz Destruktor
+ma działać w funkcji w pętli więc na koniec musi usuwać obiekt
