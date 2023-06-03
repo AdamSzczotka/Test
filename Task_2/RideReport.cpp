@@ -24,11 +24,13 @@ private:
 
     const char *fileName_;
     char *data_;
+    char *dataFirstPos_;
     int dataSize_;
     int speedUpCount_;
     int slowDownCount_;
     int leftTurnCount_;
     int rightTurnCount_;
+    bool proccessed_;
     std::string creationDate_;
     std::string creationTime_;
 };
@@ -47,6 +49,8 @@ RideReport::RideReport(const char *fileName) : fileName_(fileName), data_(nullpt
     std::ostringstream ossTime;
     ossTime << std::put_time(timeinfo, "%H:%M:%S");
     creationTime_ = ossTime.str();
+
+    proccessed_ = false;
 }
 
 RideReport::~RideReport()
@@ -59,7 +63,7 @@ bool RideReport::readData()
     std::ifstream file(fileName_);
     if (!file)
     {
-        std::cout << "Blad otwierania pliku: " << fileName_ << std::endl;
+        //std::cout << "Blad otwierania pliku: " << fileName_ << std::endl;
         return false;
     }
 
@@ -74,8 +78,11 @@ bool RideReport::readData()
     // Read file content
     file.read(data_, dataSize_);
     data_[dataSize_] = '\0';
+    dataFirstPos_ = data_;
 
     file.close();
+
+    proccessed_ = true;
 
     return true;
 }
@@ -84,7 +91,7 @@ bool RideReport::processData()
 {
     if (!data_)
     {
-        std::cout << "Brak danych do przetworzenia." << std::endl;
+        //std::cout << "Brak danych do przetworzenia." << std::endl;
         return false;
     }
 
@@ -93,12 +100,11 @@ bool RideReport::processData()
     leftTurnCount_ = 0;
     rightTurnCount_ = 0;
 
-    for (int i = 0; i < dataSize_; ++i)
+    for (;*data_ != '\0'; data_++)
     {
-        char c = data_[i];
-        if (isEventCharacter(c))
+        if (isEventCharacter(*data_))
         {
-            switch (c)
+            switch (*data_)
             {
             case 'a':
             case 'A':
@@ -119,54 +125,67 @@ bool RideReport::processData()
             }
         }
     }
+    if(speedUpCount_ == 0 && slowDownCount_ == 0 && leftTurnCount_ == 0 && rightTurnCount_ == 0)
+    {
+        //std::cout<<"Brak poprawnych danych."<<std::endl;
+        return false;
+    }
 
     return true;
 }
 
 int RideReport::getSpeedUpCount()
 {
-    return speedUpCount_;
+    if(proccessed_)
+        return speedUpCount_;
+
+    return -1;
 }
 
 int RideReport::getSlowDownCount()
 {
-    return slowDownCount_;
+    if(proccessed_)
+        return slowDownCount_;
+
+    return -1;
 }
 
 int RideReport::getLeftTurnCount()
 {
-    return leftTurnCount_;
+    if(proccessed_)
+        return leftTurnCount_;
+
+    return -1;
 }
 
 int RideReport::getRightTurnCount()
 {
-    return rightTurnCount_;
+    if(proccessed_)
+        return rightTurnCount_;
+
+    return -1;
 }
 
-bool RideReport::saveCleanedData(const char *fileName)
+bool RideReport::saveCleanedData(const char * fileName)
 {
     if (!data_)
     {
-        std::cout << "Brak danych do zapisu." << std::endl;
+        //std::cout << "Brak danych do zapisu." << std::endl;
         return false;
     }
 
     std::ofstream file(fileName);
     if (!file)
     {
-        std::cout << "Blad tworzenia pliku: " << fileName << std::endl;
+        //std::cout << "Blad tworzenia pliku: " << fileName << std::endl;
         return false;
     }
-
     // Remove unwanted characters and save cleaned data
-    for (int i = 0; i < dataSize_; ++i)
-    {
-        char c = data_[i];
-        if (isEventCharacter(c))
-        {
-            file << c;
-        }
-    }
+    data_ = dataFirstPos_;
+    for (;*data_ != '\0'; ++data_)
+        if (isEventCharacter(*data_))
+            file << *data_;
+        
 
     file.close();
 
@@ -176,28 +195,32 @@ bool RideReport::saveCleanedData(const char *fileName)
 bool RideReport::saveAsText(const char *fileName)
 {
     if (!data_)
-    {
-        std::cout << "Brak danych do zapisu." << std::endl;
         return false;
-    }
+        //std::cout << "Brak danych do zapisu." << std::endl;
+        
+    
 
     std::ofstream file(fileName);
     if (!file)
-    {
-        std::cout << "Blad tworzenia pliku: " << fileName << std::endl;
         return false;
-    }
+     //std::cout << "Blad tworzenia pliku: " << fileName << std::endl;
+        
+    
 
     // Write report header
-    file << "Data utworzenia: " << creationDate_ << std::endl;
-    file << "Czas utworzenia: " << creationTime_ << std::endl;
+    file <<"Raport dla pliku:"<< std::endl;
+    file << fileName_ << std::endl;
+    file << "Data utworzenia:" << std::endl;
+    file << creationDate_ << std::endl;
+    file << "Czas utworzenia:" << std::endl;
+    file << creationTime_ << std::endl;
     file << std::endl;
 
     // Write processed data
-    file << "Liczba przyśpieszeń: " << speedUpCount_ << std::endl;
-    file << "Liczba zwolnień: " << slowDownCount_ << std::endl;
-    file << "Liczba skrętów w lewo: " << leftTurnCount_ << std::endl;
-    file << "Liczba skrętów w prawo: " << rightTurnCount_ << std::endl;
+    file << "Przyśpieszenia: " << getSpeedUpCount() << std::endl;
+    file << "Hamowania: " << getSlowDownCount() << std::endl;
+    file << "Lewo: " << getLeftTurnCount() << std::endl;
+    file << "Prawo: " << getRightTurnCount() << std::endl;
 
     file.close();
 
@@ -208,29 +231,25 @@ bool RideReport::saveAsXML(const char *fileName)
 {
     if (!data_)
     {
-        std::cout << "No data to save." << std::endl;
+        //std::cout << "Brak danych do zapisu." << std::endl;
         return false;
     }
 
     std::ofstream file(fileName);
     if (!file)
     {
-        std::cout << "Error creating file: " << fileName << std::endl;
+        //std::cout << "Blad tworzenia pliku: " << fileName << std::endl;
         return false;
     }
 
     // Write XML report
     file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
-    file << "<rideReport>" << std::endl;
-    file << "  <creationDate>" << creationDate_ << "</creationDate>" << std::endl;
-    file << "  <creationTime>" << creationTime_ << "</creationTime>" << std::endl;
-    file << "  <data>" << std::endl;
-    file << "    <speedUpCount>" << speedUpCount_ << "</speedUpCount>" << std::endl;
-    file << "    <slowDownCount>" << slowDownCount_ << "</slowDownCount>" << std::endl;
-    file << "    <leftTurnCount>" << leftTurnCount_ << "</leftTurnCount>" << std::endl;
-    file << "    <rightTurnCount>" << rightTurnCount_ << "</rightTurnCount>" << std::endl;
-    file << "  </data>" << std::endl;
-    file << "</rideReport>" << std::endl;
+    file << "<report file=\"" << fileName_ <<"\" date=\""<< creationDate_ <<"\" time=\"" << creationTime_ << "\">" << std::endl;
+    file << "<speed-up-count>" << getSpeedUpCount() << "</speed-up-count>" << std::endl;
+    file << "<slow-down-count>" << getSlowDownCount() << "</slow-down-count>" << std::endl;
+    file << "<left-turn-count>" << getLeftTurnCount() << "</left-turn-count>" << std::endl;
+    file << "<right-turn-count>" << getRightTurnCount() << "</right-turn-count>" << std::endl;
+    file << "</report>" << std::endl;
 
     file.close();
 
