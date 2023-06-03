@@ -8,8 +8,8 @@ int main()
     RideReport report4(fileName);
     report4.readData();
     report4.processData();
-    report4.saveAsText("report4.txt");
-    // Trzeba poprawić funkcje process data
+    report4.saveAsText("report4_text.txt");
+
 
     return 0;
 }

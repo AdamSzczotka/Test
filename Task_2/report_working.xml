@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report file="data.txt" date="2023-06-03" time="09:52:42">
+<speed-up-count>7</speed-up-count>
+<slow-down-count>7</slow-down-count>
+<left-turn-count>7</left-turn-count>
+<right-turn-count>7</right-turn-count>
+</report>

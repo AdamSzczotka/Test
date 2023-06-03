@@ -1,0 +1,11 @@
+Raport dla pliku:
+data.txt
+Data utworzenia:
+2023-06-03
+Czas utworzenia:
+09:52:42
+
+Przyśpieszenia: 7
+Hamowania: 7
+Lewo: 7
+Prawo: 7
